@@ -4,7 +4,7 @@ pipeline {
     }
     // environment { 
     //     COURSE = 'JENKINS'
-    }
+    // }
     options {
         timeout(time: 30, unit: 'MINUTES')
         disableConcurrentBuilds() 
@@ -27,9 +27,11 @@ pipeline {
             steps {
                 script{
                   sh """
-                    echo 'hey Building..' 
-                    sleep 10
-                    env
+
+                  echo 'hey Building..' 
+                  sleep 10
+                  env
+
                 """ 
                 }
             }
