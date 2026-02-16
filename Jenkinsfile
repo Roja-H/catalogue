@@ -2,9 +2,13 @@ pipeline {
     agent  {
         label 'AGENT-1'
     }
-    // environment { 
-    //     COURSE = 'JENKINS'
-    // }
+    environment { 
+        appVersion = ''
+        // REGION = "us-east-1"
+        // ACC_ID = "315069654700"
+        // PROJECT = "roboshop"
+        // COMPONENT = "catalogue"
+    }
     options {
         timeout(time: 30, unit: 'MINUTES')
         disableConcurrentBuilds() 
@@ -23,16 +27,12 @@ pipeline {
 
     // Build
     stages {  // goovy based 
-        stage('Build') {
+        stage('Read package.json') {
             steps {
-                script{
-                  sh """
-
-                  echo 'hey Building..' 
-                  sleep 10
-                  env
-
-                """ 
+                script {
+                    def packageJson = readJSON file: 'package.json'
+                    appVersion = packageJson.version
+                    echo "Package version: ${appVersion}"
                 }
             }
         }
